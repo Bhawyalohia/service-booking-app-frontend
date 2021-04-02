@@ -34,10 +34,6 @@ function Header()
         {
           toast.error("Logged Out Successfully");    
         });
-        // dispatch({
-        //   type:'LOG_OUT',
-        //   payload:null
-        // });
         history.push("/login");
     }
   return (

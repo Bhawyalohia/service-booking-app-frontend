@@ -3,47 +3,87 @@ import {useState} from "react";
 import  {auth} from "../../auth.js";
 import {googleAuthProvider} from "../../auth.js"
 import {toast} from "react-toastify";
+import {saveUserInDb} from "../../functions/auth"
+import {useDispatch} from "react-redux"
 function Login()
 {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
+   const dispatch=useDispatch();
   function handleEmailChange(event)
   {
       setEmail(event.target.value);
   }
+
   function handlePasswordChange(event)
   {
       setPassword(event.target.value);
   }
+
   function handleLoginWithGoogle(e)
   {
      e.preventDefault();
      auth.signInWithPopup(googleAuthProvider)
-     .then((result)=>
-     {
-        console.log(result.user);
-     })
-     .catch((err)=>
-     {
-
-     })
+     .then((userCredential) => {
+      var user = userCredential.user;
+      console.log("login user: ",user);
+      user.getIdTokenResult()
+      .then((result)=>
+      {
+        saveUserInDb(result.token)
+        .then((res)=>
+        {
+           dispatch({
+              type:"LOGIN_WITH_EMAIL",
+              payload:{
+               name:res.data.name,
+               email:res.data.email,
+               idToken:result.token,
+               picture:res.data.picture,
+               role:res.data.role
+              }
+           });
+        })
+        .catch((error)=>{console.log(error);});
+      })
+      .catch((error)=>{console.log(error);})      
+   })
+   .catch((err)=>{toast.error(err.message);})
   }
+
+
   function handleSubmit(e)
   {
      e.preventDefault();
      auth.signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-       var user = userCredential.user;
-       console.log("usercredential: ",userCredential);
-       console.log("login user: ",user);
-       
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      toast.error(error.message);
-    });
+     .then((userCredential) => {
+      var user = userCredential.user;
+      console.log("login user: ",user);
+      user.getIdTokenResult()
+      .then((result)=>
+      {
+        saveUserInDb(result.token)
+        .then((res)=>
+        {
+           dispatch({
+              type:"LOGIN_WITH_EMAIL",
+              payload:{
+               name:res.data.name,
+               email:res.data.email,
+               idToken:result.token,
+               picture:res.data.picture,
+               role:res.data.role
+              }
+           });
+        })
+        .catch((error)=>{console.log(error);});
+      })
+      .catch((error)=>{console.log(error);})      
+     })
+     .catch((error)=>{toast.error(error.message);})
   }
+
+
   return(
     <div className="container p-5">
     <div className="row">

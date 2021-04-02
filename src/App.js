@@ -8,23 +8,41 @@ import Header from "./Header.jsx";
 import CompleteRegister from "./pages/auth/CompleteRegister"
 import {auth} from "./auth"
 import {useDispatch} from "react-redux";
-import { useEffect } from 'react';
+import {useEffect} from 'react';
+import {currentUser} from "./functions/auth";
+import UserDashboard from "./pages/UserDashboard";
+import UserDashboardRoute from "./routes/UserDashboardRoute"; 
 function App() {
-  const dispatch=useDispatch();
+  const dispatch=useDispatch(); 
   useEffect(()=>
   {
      auth.onAuthStateChanged((user)=>
      {
         if(user)
         {
-          const idToken=user.getIdTokenResult();
-          dispatch({
-               type: 'LOGIN_WITH_EMAIL',
-               payload: {
-                 email: user.email,
-                 idToken: idToken
-               }    
-          });
+          console.log("i ran");
+          user.getIdTokenResult()           
+          .then((result)=>
+          {
+             currentUser(result.token)
+            .then((res)=>
+            {
+              if(res.data){
+               dispatch({
+                  type:"LOGIN_WITH_EMAIL",
+                  payload:{
+                   name:res.data.name,
+                   email:res.data.email,
+                   idToken:result.token,
+                   picture:res.data.picture,
+                   role:res.data.role
+                  }
+               });
+              }
+            })
+            .catch((error)=>{console.log(error);})
+          })
+          .catch((error)=>{console.log(error);})    
         }
         else
         {
@@ -34,7 +52,7 @@ function App() {
           });
         }
      })
-  })
+  },[])
   return (
     <>
     <Header></Header>
@@ -43,6 +61,7 @@ function App() {
      <Route exact path="/login" component={Login}></Route>
      <Route exact path="/register" component={Register}></Route>
      <Route exact path="/register/complete" component={CompleteRegister}></Route>
+     <UserDashboardRoute exact path="/user-dashboard" component={UserDashboard}></UserDashboardRoute>
     </Switch> 
     </>
 );
