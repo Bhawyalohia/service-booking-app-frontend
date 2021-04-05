@@ -14,6 +14,6 @@ function UserDashboardRoute({children,...rest})
     if(user&&user.idToken)
     return <Route {...rest} render={()=>{return children;}}></Route>;
     // history.push("/login");
-    return 7;
+    return <h1>Login First</h1>;
 }
 export default UserDashboardRoute;

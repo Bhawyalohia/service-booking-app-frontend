@@ -11,7 +11,7 @@ import {useDispatch} from "react-redux";
 import {useEffect} from 'react';
 import {currentUser} from "./functions/auth";
 import UserDashboard from "./pages/UserDashboard";
-import UserDashboardRoute from "./routes/UserDashboardRoute"; 
+import UserDashboardRoute from "./protectedRoutes/UserDashboardRoute"; 
 function App() {
   const dispatch=useDispatch(); 
   useEffect(()=>
@@ -61,6 +61,7 @@ function App() {
      <Route exact path="/login" component={Login}></Route>
      <Route exact path="/register" component={Register}></Route>
      <Route exact path="/register/complete" component={CompleteRegister}></Route>
+
      <UserDashboardRoute exact path="/user-dashboard" component={UserDashboard}></UserDashboardRoute>
     </Switch> 
     </>

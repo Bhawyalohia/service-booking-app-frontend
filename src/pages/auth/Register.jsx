@@ -1,43 +1,31 @@
 import React, { useState } from "react";
-import  {auth} from "../../auth.js";
-import {toast} from "react-toastify";
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import {Link,useHistory} from "react-router-dom";
 function Register()
 {
-    const [email,setEmail]=useState("");
-    function handleChange(event)
-    {
-        setEmail(event.target.value);
-    }
-    function handleSubmit(e)
-    {
-       e.preventDefault();
-       const config={
-           url:"http://localhost:3000/register/complete",
-           handleCodeInApp: true
-       }
-       auth.sendSignInLinkToEmail(email, config)
-      .then(() => {
-        window.localStorage.setItem('emailForSignIn', email);
-        toast.success('A link has been sent to'+email+' .Click on it to continue.');
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
-    }
+  const history=useHistory();
+   function handleBuyer()
+   {
+     history.push("/user/buyer");
+   }
+   function handleProfessional()
+   {
+     history.push("/user/professional");
+   }
     return(
       <div className="container p-5">
-      <div className="row">
-       <div className="col-md-6 offset-md-3">
-        <h4>Register</h4>
-        <form onSubmit={handleSubmit}>
-          <input value={email} onChange={handleChange} className="form-control"/>
-          <br></br>
-          <button type="submit" className="btn btn-primary">Register</button>
-        </form>
+       <div className="row">
+       <div className="col-md-6 offset-md-3" >
+        <button className="btn btn-light btn-block" onClick={handleBuyer}>Buyer</button>
+        </div>
+        <div className="col-md-6 offset-md-3" style={{paddingTop:"40px"}}>
+        <button className="btn btn-dark btn-block" onClick={handleProfessional}>Professional</button>
+        </div>
        </div>
       </div>
-      </div>
-    ); 
+    );  
 }
 export default Register;
+
+
