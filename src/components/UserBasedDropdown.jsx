@@ -37,7 +37,7 @@ function UserBasedDropdown(props)
       );
     return (<Dropdown overlay={props.type==="buyer"?menuBuyer:menuSeller} className="float-right" >
     <a className="ant-dropdown-link" onClick={e => e.preventDefault()} style={{paddingRight:"50px"}}>
-      <UserOutlined style={{color:"grey"}} />
+      <UserOutlined style={{color:"black"}} />
     </a>
   </Dropdown>)
 }

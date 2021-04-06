@@ -12,6 +12,8 @@ import {useEffect} from 'react';
 import {currentUser} from "./functions/auth";
 import UserDashboard from "./pages/UserDashboard";
 import UserDashboardRoute from "./protectedRoutes/UserDashboardRoute"; 
+import RegisterBuyer from './pages/auth/RegisterBuyer';
+import RegisterProfessional from './pages/auth/RegisterProfessional';
 function App() {
   const dispatch=useDispatch(); 
   useEffect(()=>
@@ -61,7 +63,8 @@ function App() {
      <Route exact path="/login" component={Login}></Route>
      <Route exact path="/register" component={Register}></Route>
      <Route exact path="/register/complete" component={CompleteRegister}></Route>
-
+     <Route exact path="/register/buyer" component={RegisterBuyer}></Route>
+     <Route exact path="/register/professional" component={RegisterProfessional}></Route>
      <UserDashboardRoute exact path="/user-dashboard" component={UserDashboard}></UserDashboardRoute>
     </Switch> 
     </>

@@ -7,11 +7,11 @@ function Register()
   const history=useHistory();
    function handleBuyer()
    {
-     history.push("/user/buyer");
+     history.push("/register/buyer");
    }
    function handleProfessional()
    {
-     history.push("/user/professional");
+     history.push("/register/professional");
    }
     return(
       <div className="container p-5">

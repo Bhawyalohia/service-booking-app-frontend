@@ -89,16 +89,14 @@ function Login()
     <div className="row">
      <div className="col-md-6 offset-md-3">
       <form onSubmit={handleSubmit}>
-        <h4>Email</h4>
-        <input value={email} onChange={handleEmailChange} className="form-control"/>
+        <input value={email} onChange={handleEmailChange} className="form-control" placeholder="Email"/>
         <br></br>
-        <h4>Password</h4>
-        <input value={password} onChange={handlePasswordChange} className="form-control"/>
+        <input value={password} onChange={handlePasswordChange} className="form-control" placeholder="Password"/>
         <br></br>
-        <button type="submit" className="btn btn-primary btn-block" >Login</button>
+        <button type="submit" className="btn btn-light btn-block" >Login</button>
       </form>
       <br/>
-      <button onClick={handleLoginWithGoogle} className="btn btn-danger btn-block">Login with google</button>
+      <button onClick={handleLoginWithGoogle} className="btn btn-dark btn-block">Login with google</button>
      </div>
     </div>
     </div>
