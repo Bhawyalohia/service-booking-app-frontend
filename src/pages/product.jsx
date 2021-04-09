@@ -1,9 +1,10 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import { Carousel,Divider } from 'antd';
-
-function onChange(a, b, c) {
-  console.log(a, b, c);
+import { Carousel,Divider,Input,Space} from 'antd';
+import ReviewCard from "../components/ReviewCard";
+const { TextArea } = Input;
+function onChange(e) {
+  console.log(e.target.value);
 }
 
 const contentStyle = {
@@ -18,7 +19,7 @@ function Product()
 return (<div className="container">
          <div className="row p-5">
             <div className="col-md-8">
-            <Carousel afterChange={onChange}>
+            <Carousel>
               <div>
               <img className="d-block w-100" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="First slide"/>
               </div>
@@ -32,7 +33,19 @@ return (<div className="container">
               <img className="d-block w-100" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="First slide"/>
               </div>
               </Carousel>
-              
+              <div style={{marginTop:"30px"}}>
+              <Space direction="vertical">
+              <TextArea rows={3} onChange={onChange} placeholder="Post a review..."/>
+              <button className="btn btn-dark btn-lg">Post</button>
+              <Divider orientation="left" plain>
+              <h6>Reviews from customers</h6>
+              </Divider>
+              <ReviewCard></ReviewCard>
+              <ReviewCard></ReviewCard>
+              <ReviewCard></ReviewCard>
+              <ReviewCard></ReviewCard>
+              </Space>
+              </div>
             </div>
             <div className="col-md-4">
             <h4 style={{padding:"10px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi</h4>
