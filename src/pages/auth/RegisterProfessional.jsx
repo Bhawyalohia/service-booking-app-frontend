@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import  {auth} from "../../auth.js";
 import {toast} from "react-toastify";
 import { Select } from 'antd';
+import { saveUserInDb } from "../../functions/auth.js";
 function RegisterProfessional()
 {
   const { Option } = Select;
@@ -30,20 +31,19 @@ function RegisterProfessional()
   function handleSubmit(e)
   {
      e.preventDefault();
-     console.log(registerUser);
-    //  const config={
-    //      url:"http://localhost:3000/register/complete",
-    //      handleCodeInApp: true
-    //  }
-    //  auth.sendSignInLinkToEmail(email, config)
-    // .then(() => {
-    //   window.localStorage.setItem('emailForSignIn', email);
-    //   toast.success('A link has been sent to'+email+' .Click on it to continue.');
-    // })
-    // .catch((error) => {
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    // });
+       auth.signInWithEmailAndPassword(registerUser.email,registerUser.password)
+       .then((userCredential) => {
+         var user = userCredential.user;
+          user.getIdTokenResult()
+          .then((result)=>
+          {
+            saveUserInDb(result.token,registerUser)
+            .then((res)=>{console.log(res)})
+            .catch((err)=>{console.log(err)});
+          })
+          .catch((error)=>{console.log(error)});
+       })
+       .catch((error) => {console.log(error)});
   }
   
   return(

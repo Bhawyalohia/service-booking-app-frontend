@@ -29,16 +29,12 @@ function App() {
              currentUser(result.token)
             .then((res)=>
             {
+              console.log(res);
               if(res.data){
                dispatch({
                   type:"LOGIN_WITH_EMAIL",
-                  payload:{
-                   name:res.data.name,
-                   email:res.data.email,
-                   idToken:result.token,
-                   picture:res.data.picture,
-                   role:res.data.role
-                  }
+                  payload: {...res.data,
+                    idToken:result.token}
                });
               }
             })

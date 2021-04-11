@@ -3,7 +3,7 @@ import {useState} from "react";
 import  {auth} from "../../auth.js";
 import {googleAuthProvider} from "../../auth.js"
 import {toast} from "react-toastify";
-import {saveUserInDb} from "../../functions/auth"
+import {saveUserInDb,currentUser} from "../../functions/auth"
 import {useDispatch} from "react-redux"
 function Login()
 {
@@ -30,18 +30,13 @@ function Login()
       user.getIdTokenResult()
       .then((result)=>
       {
-        saveUserInDb(result.token)
+        currentUser(result.token)
         .then((res)=>
         {
+          console.log(res)
            dispatch({
               type:"LOGIN_WITH_EMAIL",
-              payload:{
-               name:res.data.name,
-               email:res.data.email,
-               idToken:result.token,
-               picture:res.data.picture,
-               role:res.data.role
-              }
+              payload:res.data
            });
         })
         .catch((error)=>{console.log(error);});
@@ -62,18 +57,14 @@ function Login()
       user.getIdTokenResult()
       .then((result)=>
       {
-        saveUserInDb(result.token)
+        currentUser(result.token)
         .then((res)=>
         {
+          console.log(res)
            dispatch({
               type:"LOGIN_WITH_EMAIL",
-              payload:{
-               name:res.data.name,
-               email:res.data.email,
-               idToken:result.token,
-               picture:res.data.picture,
-               role:res.data.role
-              }
+              payload: {...res.data,
+                idToken:result.token}
            });
         })
         .catch((error)=>{console.log(error);});
