@@ -1,15 +1,17 @@
 import React  from "react";
-function DjCard()
+import {Link} from "react-router-dom";
+function DjCard(props)
 {
+   const {service}=props;
    return (<div className="card border-light mb-3 " style={{width: "18rem",fontSize:"small"}}>
-      <img className="card-img-top" src="https://preview.free3d.com/img/2019/03/2408221476009281469/56jv1cw5-900.jpg" alt="Card image cap" />
+      <img className="card-img-top" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="Card image cap" />
       <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">Some quick example text to build on the card title and ...</p>
+      <h5 className="card-title">{service.title}</h5>
+      <p className="card-text">{service.description}</p>
       <div className="row">
-            <div className="col">Rs.500</div>
-            <div className="col"><a href="#">Check it</a></div>
-        </div>
+       <div className="col">Rs.{service.price}<span>(per day)</span></div>
+       <div className="col"><Link to={{pathname:"/product",data:{service:service}}}>Check it</Link></div>
+      </div>
      </div>
    </div>);
 }

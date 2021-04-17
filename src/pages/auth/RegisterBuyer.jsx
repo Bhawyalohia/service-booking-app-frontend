@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import  {auth} from "../../auth.js";
 import {toast} from "react-toastify";
+
 import { saveUserInDb } from "../../functions/auth.js";
+import { useDispatch } from "react-redux";
 function RegisterBuyer()
 {
+    const dispatch=useDispatch();
     const [registerUser,setRegisterUser]=useState({
         userName:"",
         email:"",
@@ -19,14 +22,20 @@ function RegisterBuyer()
     function handleSubmit(e)
     {
        e.preventDefault();
-       auth.signInWithEmailAndPassword(registerUser.email,registerUser.password)
+       auth.createUserWithEmailAndPassword(registerUser.email,registerUser.password)
        .then((userCredential) => {
          var user = userCredential.user;
           user.getIdTokenResult()
           .then((result)=>
           {
               saveUserInDb(result.token,registerUser)
-              .then((res)=>{console.log(res)})
+              .then((res)=>{console.log(res)
+                dispatch({
+                  type:"LOGIN_WITH_EMAIL",
+                  payload:{...res.data,
+                    idToken: result.token}
+               });
+              })
               .catch((err)=>{console.log(err)});
           })
           .catch((error)=>{console.log(error)});

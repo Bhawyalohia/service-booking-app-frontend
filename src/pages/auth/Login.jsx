@@ -36,7 +36,8 @@ function Login()
           console.log(res)
            dispatch({
               type:"LOGIN_WITH_EMAIL",
-              payload:res.data
+              payload:{...res.data,
+                idToken: result.token}
            });
         })
         .catch((error)=>{console.log(error);});

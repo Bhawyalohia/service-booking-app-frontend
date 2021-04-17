@@ -14,6 +14,18 @@ import UserDashboard from "./pages/UserDashboard";
 import UserDashboardRoute from "./protectedRoutes/UserDashboardRoute"; 
 import RegisterBuyer from './pages/auth/RegisterBuyer';
 import RegisterProfessional from './pages/auth/RegisterProfessional';
+import BanquetHallServices from "./pages/BanquetHallServices"
+import Product from "./pages/product"
+import CateringServices from "./pages/CateringServices";
+import DjServices from "./pages/DjServices";
+import ProfessionalProducts from "./pages/professional/ProfessionalProducts";
+import ProfessionalAccountSettings from "./pages/professional/ProfessionalAccountSettings";
+import ProfessionalOrders from "./pages/professional/ProfessionalOrders";
+import BuyerAccountSettings from "./pages/buyer/BuyerAccountSettings"
+import BuyerCart from "./pages/buyer/BuyerCart";
+import BuyerOrders from "./pages/buyer/BuyerOrders";
+import BookService from "./pages/BookService";
+import AddProduct from "./pages/professional/AddProduct";
 function App() {
   const dispatch=useDispatch(); 
   useEffect(()=>
@@ -62,6 +74,18 @@ function App() {
      <Route exact path="/register/buyer" component={RegisterBuyer}></Route>
      <Route exact path="/register/professional" component={RegisterProfessional}></Route>
      <UserDashboardRoute exact path="/user-dashboard" component={UserDashboard}></UserDashboardRoute>
+     <Route exact path="/catering-services" component={CateringServices}></Route>
+     <Route exact path="/dj-services" component={DjServices}></Route>
+     <Route exact path="/banquet-hall-services" component={BanquetHallServices}></Route>
+     <Route exact path="/product" component={Product} ></Route>
+     <Route exact path="/buyer/cart" component={BuyerCart} ></Route>
+     <Route exact path="/buyer/orders" component={BuyerOrders} ></Route>
+     <Route exact path="/buyer/account-settings" component={BuyerAccountSettings} ></Route>
+     <Route exact path="/professional/products" component={ProfessionalProducts} ></Route>
+     <Route exact path="/professional/account-settings" component={ProfessionalAccountSettings} ></Route>
+     <Route exact path="/professional/orders" component={ProfessionalOrders} ></Route>
+     <Route exact path="/book-service" component={BookService} ></Route>
+     <Route exact path="/professional/add-product" component={AddProduct} ></Route>
     </Switch> 
     </>
 );

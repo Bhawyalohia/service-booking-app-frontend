@@ -21,17 +21,17 @@ function UserBasedDropdown(props)
     }
     const menuBuyer = (
         <Menu>
-          <Menu.Item><Link to="/login">Cart</Link></Menu.Item>
-          <Menu.Item><Link to="/login">Orders</Link></Menu.Item>
-          <Menu.Item><Link to="/login">Account Settings</Link></Menu.Item>
+          <Menu.Item><Link to="/buyer/cart">Cart</Link></Menu.Item>
+          <Menu.Item><Link to="/buyer/orders">Orders</Link></Menu.Item>
+          <Menu.Item><Link to="/buyer/account-settings">Account Settings</Link></Menu.Item>
           <Menu.Item onClick={handleLogOut}>Sign Out</Menu.Item>
         </Menu>
       );
       const menuSeller = (
         <Menu>
-          <Menu.Item><Link to="/login">Products</Link></Menu.Item>
-          <Menu.Item><Link to="/login">Orders</Link></Menu.Item>
-          <Menu.Item><Link to="/login">Account Settings</Link></Menu.Item>
+          <Menu.Item><Link to="/professional/products">Products</Link></Menu.Item>
+          <Menu.Item><Link to="/professional/orders">Orders</Link></Menu.Item>
+          <Menu.Item><Link to="/professional/account-settings">Account Settings</Link></Menu.Item>
           <Menu.Item onClick={handleLogOut}>Sign Out</Menu.Item>
         </Menu>
       );

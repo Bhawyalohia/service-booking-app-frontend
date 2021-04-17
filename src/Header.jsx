@@ -35,7 +35,7 @@ function Header()
       <Menu.Item key="Register" icon={<AppstoreOutlined />} className="float-right">
         <Link to="/register" >Register</Link>
       </Menu.Item>
-      </>):(<UserBasedDropdown type={user.type} />)
+      </>):(<UserBasedDropdown type={user.role} />)
       }
     </Menu>
   );
