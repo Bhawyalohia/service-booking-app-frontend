@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import {useSelector} from "react-redux";
+import React, { useEffect,useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { Carousel,Divider,Input,Space} from 'antd';
 import ReviewCard from "../components/ReviewCard";
 import axios from "axios";
@@ -15,11 +15,20 @@ const contentStyle = {
   textAlign: 'center',
   background: '#364d79',
 };
-function Product(props)
+function Product({match})
 {
-  const {service}=props.location.data;
-  const owner=service.by;
-  const {user}=useSelector((state)=>{return state;})
+  const serviceId=match.params.slug;
+  console.log(serviceId)
+  const [service,updateService]=useState(null);
+  const {user}=useSelector((state)=>{return state;});
+  useEffect(()=>
+  {
+    axios.get("http://localhost:8000/services/"+serviceId)
+    .then((res)=>{console.log(res);
+      updateService(res.data);
+    })
+    .catch((error)=>{console.log("could not send add to cart request:",error)})
+  },[])
   function handleAddToCart()
   {
     axios.post("http://localhost:8000/buyer/addtocart",service,{
@@ -30,7 +39,8 @@ function Product(props)
     .then((res)=>{console.log(res)})
     .catch((error)=>{console.log("could not send add to cart request:",error)})
   }
-return (<div className="container">
+
+return (service?(<div className="container">
          <div className="row p-5">
             <div className="col-md-8">
             <Carousel>
@@ -79,11 +89,11 @@ return (<div className="container">
              <h6>From</h6>
             </Divider>
             <ul>
-            <li>{owner.address}</li>
+            <li>{service.by.address}</li>
             </ul>
             <button className="btn btn-dark btn-block" onClick={handleAddToCart}>Add To Cart</button>
             </div>
          </div>
-      </div>);
+      </div>):<div></div>);
 }
 export default Product;

@@ -10,7 +10,7 @@ function BanquetHallCard(props)
       <p className="card-text">{service.description}</p>
       <div className="row">
        <div className="col">Rs.{service.price}<span>(per day)</span></div>
-       <div className="col"><Link to={{pathname:"/product",data:{service:service}}}>Check it</Link></div>
+       <div className="col"><Link to={"/product/"+ service._id}>Check it </Link></div>
       </div>
      </div>
    </div>);

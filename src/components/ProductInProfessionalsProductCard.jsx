@@ -1,6 +1,7 @@
 import React  from "react";
 import axios from "axios";
 import {useSelector} from "react-redux";
+import {Link} from "react-router-dom"
 function ProductInProfessionalsProductCard(props)
 {
    const {service}=props;
@@ -26,7 +27,7 @@ function ProductInProfessionalsProductCard(props)
    <p className="card-text">{service.description}...</p>
    <p className="col">Rs.{service.price} (per day)</p>
    <div className="row">
-   <div className="col">Update</div>
+   <div className="col"><Link to={"/professional/update-product/"+service._id}>Update</Link></div>
    <div className="col" onClick={handleDelete}><a>Delete</a></div>
    </div>
    </div>

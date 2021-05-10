@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DjCard from "../components/DjCard";
 import CatererCard from "../components/CatererCard";
 import BanquetHallCard from "../components/BanquetHallCard";
@@ -6,11 +6,13 @@ import { Input,Select,DatePicker} from 'antd';
 const {Option}=Select;
 const { TextArea } = Input;
 
-function BookService()
+function BookService(props)
 {
+    const {service}=props.location.data;
+    //const [formData,updateData]=useEffect();
     function onChange()
     {
-
+       
     }
     function handleChange()
     {
@@ -50,10 +52,11 @@ function BookService()
          <button className="btn btn-dark btn-block">Place Order</button>
          </div>
          <div className="col-4">
-            <BanquetHallCard></BanquetHallCard>
+            {/* <BanquetHallCard></BanquetHallCard> */}
          </div>
         </div>
     </div>
 }
 export default BookService;
+//to={{pathname:"/product",data:{service:service}}}
 

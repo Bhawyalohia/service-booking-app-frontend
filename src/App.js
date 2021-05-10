@@ -7,7 +7,7 @@ import Register from "./pages/auth/Register"
 import Header from "./Header.jsx";
 import CompleteRegister from "./pages/auth/CompleteRegister"
 import {auth} from "./auth"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from 'react';
 import {currentUser} from "./functions/auth";
 import UserDashboard from "./pages/UserDashboard";
@@ -26,8 +26,10 @@ import BuyerCart from "./pages/buyer/BuyerCart";
 import BuyerOrders from "./pages/buyer/BuyerOrders";
 import BookService from "./pages/BookService";
 import AddProduct from "./pages/professional/AddProduct";
+import UpdateProduct from "./pages/professional/UpdateProduct";
 function App() {
   const dispatch=useDispatch(); 
+  //const {service,user}=useSelector((state)=>{return state})
   useEffect(()=>
   {
      auth.onAuthStateChanged((user)=>
@@ -45,8 +47,10 @@ function App() {
               if(res.data){
                dispatch({
                   type:"LOGIN_WITH_EMAIL",
-                  payload: {...res.data,
-                    idToken:result.token}
+                  payload: {
+                    ...res.data,
+                    idToken:result.token
+                  }
                });
               }
             })
@@ -77,7 +81,7 @@ function App() {
      <Route exact path="/catering-services" component={CateringServices}></Route>
      <Route exact path="/dj-services" component={DjServices}></Route>
      <Route exact path="/banquet-hall-services" component={BanquetHallServices}></Route>
-     <Route exact path="/product" component={Product} ></Route>
+     <Route exact path="/product/:slug" component={Product} ></Route>
      <Route exact path="/buyer/cart" component={BuyerCart} ></Route>
      <Route exact path="/buyer/orders" component={BuyerOrders} ></Route>
      <Route exact path="/buyer/account-settings" component={BuyerAccountSettings} ></Route>
@@ -86,6 +90,7 @@ function App() {
      <Route exact path="/professional/orders" component={ProfessionalOrders} ></Route>
      <Route exact path="/book-service" component={BookService} ></Route>
      <Route exact path="/professional/add-product" component={AddProduct} ></Route>
+     <Route exact path="/professional/update-product/:slug" component={UpdateProduct} ></Route>
     </Switch> 
     </>
 );

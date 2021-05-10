@@ -1,14 +1,16 @@
 import React, { useEffect ,useState} from "react";
-import { useSelector } from "react-redux";
+import { connectAdvanced, useSelector } from "react-redux";
 import CartProductCard from "../../components/CartProductCard";
 import axios from "axios";
 function BuyerCart()
 {
   const [loading,updateLoading]=useState(true);
   const [cart,updateCart]=useState([]);
-  const {user}=useSelector((state)=>{return state;});
+  const {user}=useSelector((state)=>{return state;})
    useEffect(()=>
    {
+     if(loading&&user)
+     {
       axios.post("http://localhost:8000/buyer/cart",{},{
         headers:{
           authtoken:user.idToken
@@ -22,7 +24,9 @@ function BuyerCart()
           updateLoading(false);
       })
       .catch((error)=>{console.log(error)})
-   },[])
+    }
+    console.log(121212);
+   },[user])
    function getCard(service)
    {
     return <div className="col-4"><CartProductCard service={service} removeFromCart={removeFromCart}></CartProductCard></div>
