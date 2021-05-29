@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Input } from 'antd';
+import { Input, Upload } from 'antd';
 import axios from "axios";
 import {useSelector} from "react-redux"
-
+import ImageUpload from "../../components/ImageUpload";
 const { TextArea } = Input;
 
 function AddProduct()
@@ -14,8 +14,8 @@ function AddProduct()
         title:"",
         description:"",
         price:""
-        //dateOfUnav:[]
     });
+    const [images,updateImages]=useState([]);
     function onChange(e)
     {
         const {name,value}=e.target;
@@ -24,8 +24,9 @@ function AddProduct()
     }
     async function handleClick()
     {
+      console.log(images);
           try{
-            const result = await axios.post("http://localhost:8000/professional/createproduct",product,{
+            const result = await axios.post("http://localhost:8000/professional/createproduct",{...product,images:images},{
             headers: {
               authtoken : user.idToken
             }
@@ -70,7 +71,14 @@ function AddProduct()
                 </div>
                 </div>
 
-
+                <div className="row" style={{paddingTop:"40px",paddingBottom:"40px"}}>
+                  <div className="col-4">
+                  <h6>Upload Images</h6>
+                  </div>
+                  <div className="col-8">
+                  <ImageUpload images={images} updateImages={updateImages}></ImageUpload>
+                  </div>
+                </div>
                 <button className="btn btn-dark btn-block" onClick={handleClick}>Add</button>
 
                 </div>

@@ -4,10 +4,6 @@ import { Carousel,Divider,Input,Space} from 'antd';
 import ReviewCard from "../components/ReviewCard";
 import axios from "axios";
 const { TextArea } = Input;
-function onChange(e) {
-  console.log(e.target.value);
-}
-
 const contentStyle = {
   height: '160px',
   color: '#fff',
@@ -20,12 +16,17 @@ function Product({match})
   const serviceId=match.params.slug;
   console.log(serviceId)
   const [service,updateService]=useState(null);
+  const [reviews,updateReviews]=useState([]);
+  const [rating,updateRating]=useState([]);
+  const [review,updateReview]=useState("");
   const {user}=useSelector((state)=>{return state;});
   useEffect(()=>
   {
     axios.get("http://localhost:8000/services/"+serviceId)
     .then((res)=>{console.log(res);
       updateService(res.data);
+      updateReviews(res.data.reviews);
+      //updateRating(res.data.rating);
     })
     .catch((error)=>{console.log("could not send add to cart request:",error)})
   },[])
@@ -39,39 +40,79 @@ function Product({match})
     .then((res)=>{console.log(res)})
     .catch((error)=>{console.log("could not send add to cart request:",error)})
   }
-
+  function getImages(image)
+  {
+      return   (<div>
+      <img className="d-block w-100" src={image.Location} alt="First slide"/>
+      </div>);
+  }
+  function onChange(e) {
+    console.log(e.target.value);
+    updateReview(e.target.value);
+  }  
+  function getReviewCard(review)
+  {
+     return (<ReviewCard review={review} currentUserId={user._id} removeReview={removeReview}></ReviewCard>)
+  }
+  function addReview()
+  {
+     axios.post(`http://localhost:8000/services/addreview`,{service:service,review:review},{
+      headers:{
+        authtoken:user.idToken
+     }
+     })
+     .then((response)=>
+     {
+       if(response.data.reviews)
+       updateReviews(response.data.reviews);
+       console.log(response.data);
+     })
+     .catch((error)=>
+     {
+      console.log(error);
+     })
+  }
+  function removeReview(review)
+  {
+    axios.post(`http://localhost:8000/services/removereview`,{service:service,review:review},{
+      headers:{
+        authtoken:user.idToken
+     }
+    })
+    .then((response)=>
+    {
+      if(response.data.reviews)
+      updateReviews(response.data.reviews);
+      console.log(response.data);
+    })
+    .catch((error)=>
+    {
+     console.log(error);
+    })
+  }
+  function getRating()
+  {
+      return 5;
+  }
 return (service?(<div className="container">
          <div className="row p-5">
             <div className="col-md-8">
             <Carousel>
-              <div>
-              <img className="d-block w-100" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="First slide"/>
-              </div>
-              <div>
-              <img className="d-block w-100" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="First slide"/>
-              </div>
-              <div>
-              <img className="d-block w-100" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="First slide"/>
-              </div>
-              <div>
-              <img className="d-block w-100" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="First slide"/>
-              </div>
+              {service.images.map(getImages)}
               </Carousel>
               <div style={{marginTop:"30px"}}>
               <Space direction="vertical">
-              <TextArea rows={3} onChange={onChange} placeholder="Post a review..."/>
-              <button className="btn btn-dark btn-lg">Post</button>
+              <TextArea rows={3} value={review} onChange={onChange} placeholder="Post a review..."/>
+              <button className="btn btn-dark btn-lg" onClick={addReview}>Post</button>
               <Divider orientation="left" plain>
               <h6>Reviews from customers</h6>
               </Divider>
-              <ReviewCard></ReviewCard>
-              <ReviewCard></ReviewCard>
-              <ReviewCard></ReviewCard>
-              <ReviewCard></ReviewCard>
+              {reviews.map(getReviewCard)}
               </Space>
               </div>
             </div>
             <div className="col-md-4">
+            <h1>Rating:{getRating()}</h1>
             <h4 style={{padding:"10px"}}>{service.title}</h4>
             <Divider orientation="left" plain>
              <h6>About this</h6>

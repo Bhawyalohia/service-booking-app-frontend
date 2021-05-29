@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Input } from 'antd';
 import axios from "axios";
 import {useSelector} from "react-redux"
+import ImageUpload from "../../components/ImageUpload";
 const { TextArea } = Input;
-
 function UpdateProduct({match})
 {
    const {user}=useSelector((state)=>{
@@ -14,8 +14,8 @@ function UpdateProduct({match})
         title:"",
         description:"",
         price:""
-        //dateOfUnav:[]
     });
+    const [images,updateImages]=useState([]);
     useEffect(()=>
     {
             const serviceId=match.params.slug;
@@ -25,7 +25,11 @@ function UpdateProduct({match})
                 description:res.data.description,
                 price:res.data.price,
                 _id:res.data._id
-            })})
+            }
+            )
+            updateImages(res.data.images);
+            //console.log
+          })
             .catch((error)=>{console.log(error)})
         
     },[]);
@@ -38,7 +42,7 @@ function UpdateProduct({match})
     async function handleClick()
     {
           try{
-            const result = await axios.post("http://localhost:8000/professional/updateproduct",product,{
+            const result = await axios.post("http://localhost:8000/professional/updateproduct",{...product,images},{
             headers: {
               authtoken : user.idToken
             }
@@ -83,6 +87,14 @@ function UpdateProduct({match})
                 </div>
                 </div>
 
+                <div className="row" style={{paddingTop:"40px",paddingBottom:"40px"}}>
+                  <div className="col-4">
+                  <h6>Upload Images</h6>
+                  </div>
+                  <div className="col-8">
+                  <ImageUpload images={images} updateImages={updateImages}></ImageUpload>
+                  </div>
+                </div>
 
                 <button className="btn btn-dark btn-block" onClick={handleClick}>Update</button>
 

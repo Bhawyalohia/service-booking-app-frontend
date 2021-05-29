@@ -4,7 +4,7 @@ function BanquetHallCard(props)
 {
    const {service}=props;
    return (<div className="card border-light mb-3 " style={{width: "18rem",fontSize:"small"}}>
-      <img className="card-img-top" src="https://www.joonsquare.com/usermanage/image/business/the-grand-panipat-4613/the-grand-panipat-the-grand-01.jpg" alt="Card image cap" />
+      <img className="card-img-top" src={service.images.length!==0?service.images[0].Location:"https://c.ndtvimg.com/2020-05/9iuj3h1g_indian-food_625x300_19_May_20.jpg"} alt="Card image cap" />
       <div className="card-body">
       <h5 className="card-title">{service.title}</h5>
       <p className="card-text">{service.description}</p>
