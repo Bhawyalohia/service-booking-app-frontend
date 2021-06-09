@@ -28,7 +28,7 @@ function ProductInCartCard(props)
    <p className="card-text">{service.description}</p>
    <p className="col">Rs.{service.price} (per day)</p>
    <div className="row">
-   <div className="col"><Link to={{pathname:"/book-service",data:{service:service}}} >Book Service</Link></div>
+   <div className="col"><Link to={`/book-service/${service._id}`} >Book Service</Link></div>
    <div className="col" onClick={handleRemoveFromCart}><a>Remove from Cart</a></div>
    </div>
    </div>

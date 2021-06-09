@@ -27,6 +27,7 @@ import BuyerOrders from "./pages/buyer/BuyerOrders";
 import BookService from "./pages/BookService";
 import AddProduct from "./pages/professional/AddProduct";
 import UpdateProduct from "./pages/professional/UpdateProduct";
+import MakePayment from "./pages/MakePayment"
 function App() {
   const dispatch=useDispatch(); 
   //const {service,user}=useSelector((state)=>{return state})
@@ -88,9 +89,10 @@ function App() {
      <Route exact path="/professional/products" component={ProfessionalProducts} ></Route>
      <Route exact path="/professional/account-settings" component={ProfessionalAccountSettings} ></Route>
      <Route exact path="/professional/orders" component={ProfessionalOrders} ></Route>
-     <Route exact path="/book-service" component={BookService} ></Route>
+     <Route exact path="/book-service/:slug" component={BookService} ></Route>
      <Route exact path="/professional/add-product" component={AddProduct} ></Route>
      <Route exact path="/professional/update-product/:slug" component={UpdateProduct} ></Route>
+     <Route exact path="/make-payment" component={MakePayment} ></Route>
     </Switch> 
     </>
 );
