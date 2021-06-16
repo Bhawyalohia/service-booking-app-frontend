@@ -4,7 +4,7 @@ import {CardElement,useStripe,useElements} from "@stripe/react-stripe-js"
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-function StripeCheckout()
+function StripeCheckout({orderId})
 {
   const {user} =useSelector((state)=>{return state;})
   const stripe = useStripe();
@@ -12,7 +12,7 @@ function StripeCheckout()
   const [clientSecret,setClientSecret]=useState("");
   useEffect(()=>
   {
-    axios.post("http://localhost:8000/payment/create-payment-intent",{},{
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/payment/create-payment-intent`,{orderId:orderId},{
       headers:
       {
         authtoken:user.idToken

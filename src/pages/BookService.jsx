@@ -19,7 +19,7 @@ function BookService({match})
     function handlePlaceOrder()
     {
        console.log(serviceId);
-        axios.post("http://localhost:8000/orders/createorder",{...formData,serviceId:serviceId},{
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/orders/createorder`,{...formData,serviceId:serviceId},{
               headers:{
                      authtoken:user.idToken
                    }

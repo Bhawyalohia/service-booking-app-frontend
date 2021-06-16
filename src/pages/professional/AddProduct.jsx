@@ -26,7 +26,7 @@ function AddProduct()
     {
       console.log(images);
           try{
-            const result = await axios.post("http://localhost:8000/professional/createproduct",{...product,images:images},{
+            const result = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/professional/createproduct`,{...product,images:images},{
             headers: {
               authtoken : user.idToken
             }

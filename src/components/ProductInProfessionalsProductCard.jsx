@@ -9,7 +9,7 @@ function ProductInProfessionalsProductCard(props)
 
    function handleDelete()
    {
-     axios.post("http://localhost:8000/professional/deleteproduct",service,{
+     axios.post(`${process.env.REACT_APP_BACKEND_URL}/professional/deleteproduct`,service,{
        headers:{
         authtoken:user.idToken
        }

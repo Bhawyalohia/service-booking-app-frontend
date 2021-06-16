@@ -10,7 +10,7 @@ function ProductInCartCard(props)
 
    function handleRemoveFromCart()
    {
-      axios.post("http://localhost:8000/buyer/removefromcart",service,{
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/buyer/removefromcart`,service,{
       headers:{
          authtoken:user.idToken
       }

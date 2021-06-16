@@ -7,7 +7,7 @@ function DjServices()
   const [services,updateServices]=useState([]);
   useEffect(()=>
   {
-     axios.get("http://localhost:8000/services/djservices")
+     axios.get(`${process.env.REACT_APP_BACKEND_URL}/services/djservices`)
      .then((result)=>
      {
          updateServices(result.data);

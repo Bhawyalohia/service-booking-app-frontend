@@ -22,7 +22,7 @@ function Product({match})
   const {user}=useSelector((state)=>{return state;});
   useEffect(()=>
   {
-    axios.get("http://localhost:8000/services/"+serviceId)
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/services/${serviceId}`)
     .then((res)=>{console.log(res);
       updateService(res.data);
       updateReviews(res.data.reviews);
@@ -32,7 +32,7 @@ function Product({match})
   },[])
   function handleAddToCart()
   {
-    axios.post("http://localhost:8000/buyer/addtocart",service,{
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/buyer/addtocart`,service,{
       headers:{
          authtoken:user.idToken
       }
@@ -56,7 +56,7 @@ function Product({match})
   }
   function addReview()
   {
-     axios.post(`http://localhost:8000/services/addreview`,{service:service,review:review},{
+     axios.post(`${process.env.REACT_APP_BACKEND_URL}/services/addreview`,{service:service,review:review},{
       headers:{
         authtoken:user.idToken
      }
@@ -74,7 +74,7 @@ function Product({match})
   }
   function removeReview(review)
   {
-    axios.post(`http://localhost:8000/services/removereview`,{service:service,review:review},{
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/services/removereview`,{service:service,review:review},{
       headers:{
         authtoken:user.idToken
      }

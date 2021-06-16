@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 function OrderByBuyerCard(props)
 {
     const {order}=props;
-    const [condition,updateCondition]=useState(true);
+    const [condition,updateCondition]=useState(order.orderStatus);
     const {user}=useSelector((state)=>{return state;})
     function handleMakePayment()
     {
@@ -22,7 +22,7 @@ function OrderByBuyerCard(props)
     }
     function handleCancel()
     {
-        axios.post("http://localhost:8000/orders/updateorderstatus",{orderId:order._id,orderStatus:"REJECTED_BY_BUYER"},{
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/orders/updateorderstatus`,{orderId:order._id,orderStatus:"REJECTED_BY_BUYER"},{
               headers:{
                      authtoken:user.idToken
                    }
@@ -51,7 +51,7 @@ function OrderByBuyerCard(props)
         <div className="col">{order.orderStatus}</div>
        </div>
        <div className="row">
-        <div className="col">{condition&&<button className="btn btn-success" onClick={handleMakePayment}><Link to="/make-payment">Make Payment</Link></button>}</div>
+        <div className="col">{condition==="ACCEPTED_BY_SELLER"&&<button className="btn btn-success" onClick={handleMakePayment}><Link to={`/make-payment/${order._id}`}>Make Payment</Link></button>}</div>
         <div className="col"><button className="btn btn-warning" onClick={handleCancel}>Cancel</button></div>
        </div>
    </div>

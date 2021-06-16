@@ -10,7 +10,7 @@ function BuyerOrders()
      {
          if(user&&user.idToken)
          {
-             axios.post("http://localhost:8000/orders/readorders",{},{
+             axios.post(`${process.env.REACT_APP_BACKEND_URL}/orders/readorders`,{},{
                   headers:{
                        authtoken:user.idToken
                   }
@@ -24,9 +24,9 @@ function BuyerOrders()
      },[user]);
      function getOrdersCard(order)
      {
-          return <div className="col" ><OrderByBuyerCard order={order}/></div>
+          return <div className="col-12" style={{paddingTop:"2%",paddingBottom:"2%"}}><OrderByBuyerCard order={order}/></div>
      }
-     return user?(<div className="container">
+     return user?(<div className="container p-5">
             <div className="row">
                   {orders.map(getOrdersCard)}
             </div>

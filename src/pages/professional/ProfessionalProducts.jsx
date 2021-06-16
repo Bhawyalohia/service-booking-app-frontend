@@ -15,7 +15,7 @@ function ProfessionalProducts()
      const {user}=useSelector((state)=>{return state});
      useEffect(()=>
      { 
-      axios.post("http://localhost:8000/professional/ownedproducts",{},{
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/professional/ownedproducts`,{},{
         headers:{
           authtoken:user.idToken
         }

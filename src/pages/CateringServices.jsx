@@ -6,7 +6,7 @@ function CateringServices()
    const [services,updateServices]=useState([]);
    useEffect(()=>
    {
-      axios.get("http://localhost:8000/services/cateringservices")
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/services/cateringservices`)
       .then((result)=>
       {
           updateServices(result.data);

@@ -10,7 +10,7 @@ function ProfessionalOrders()
      {
          if(user&&user.idToken)
          {
-             axios.post("http://localhost:8000/orders/readorders",{},{
+             axios.post(`${process.env.REACT_APP_BACKEND_URL}/orders/readorders`,{},{
                   headers:{
                        authtoken:user.idToken
                   }
@@ -18,6 +18,7 @@ function ProfessionalOrders()
              .then((response)=>
              {
                updateOrders(response.data);
+               console.log(response.data);
              })
              .catch((err)=>{console.log(err)})
          }
@@ -26,10 +27,10 @@ function ProfessionalOrders()
      {
           return <div className="col" ><OrderForProfessionalCard order={order}/></div>
      }
-     return user?(<div className="container">
+     return (user?(<div className="container">
             <div className="row">
-                  {orders.map(getOrdersCard)}
+                  {orders.length!=0&&orders.map(getOrdersCard)}
             </div>
-           </div>):<h1>Login First</h1>
+           </div>):<h1>Login First</h1>)
 }
 export default ProfessionalOrders;

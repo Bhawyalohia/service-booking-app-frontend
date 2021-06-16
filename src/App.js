@@ -92,7 +92,7 @@ function App() {
      <Route exact path="/book-service/:slug" component={BookService} ></Route>
      <Route exact path="/professional/add-product" component={AddProduct} ></Route>
      <Route exact path="/professional/update-product/:slug" component={UpdateProduct} ></Route>
-     <Route exact path="/make-payment" component={MakePayment} ></Route>
+     <Route exact path="/make-payment/:slug" component={MakePayment} ></Route>
     </Switch> 
     </>
 );

@@ -11,7 +11,7 @@ function BuyerCart()
    {
      if(loading&&user)
      {
-      axios.post("http://localhost:8000/buyer/cart",{},{
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/buyer/cart`,{},{
         headers:{
           authtoken:user.idToken
         }

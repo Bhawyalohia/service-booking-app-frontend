@@ -6,7 +6,7 @@ function BanquetHallServices()
    const [services,updateServices]=useState([]);
    useEffect(()=>
    {
-      axios.get("http://localhost:8000/services/hallservices")
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/services/hallservices`)
       .then((result)=>
       {
           updateServices(result.data);

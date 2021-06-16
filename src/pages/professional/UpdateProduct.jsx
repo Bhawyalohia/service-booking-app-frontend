@@ -19,7 +19,7 @@ function UpdateProduct({match})
     useEffect(()=>
     {
             const serviceId=match.params.slug;
-            axios.get(`http://localhost:8000/services/${serviceId}`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/services/${serviceId}`)
             .then((res)=>{setProduct({...product,
                 title:res.data.title,
                 description:res.data.description,
@@ -42,7 +42,7 @@ function UpdateProduct({match})
     async function handleClick()
     {
           try{
-            const result = await axios.post("http://localhost:8000/professional/updateproduct",{...product,images},{
+            const result = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/professional/updateproduct`,{...product,images},{
             headers: {
               authtoken : user.idToken
             }
