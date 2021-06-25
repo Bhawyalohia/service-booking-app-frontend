@@ -50,7 +50,7 @@ function OrderForProfessionalCard(props)
     }
     function checkPaymentStatus()
     {
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/readOrder`,{orderId:order._id},{
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/payment/check-payment-status-on-timeout`,{orderId:order._id},{
             headers:{
                    authtoken:user.idToken
                  }
@@ -81,7 +81,7 @@ function OrderForProfessionalCard(props)
        </div>
        <div className="row">
         <div className="col">status</div>
-        <div className="col">{order.orderStatus}</div>
+        <div className="col">{orderStatus}</div>
        </div>
        <div className="row">
         <div className="col">{condition&&<button className="btn btn-success" onClick={handleAccept}>Accept</button>}</div>
@@ -89,7 +89,7 @@ function OrderForProfessionalCard(props)
        </div>
        {(orderStatus.length>0&&orderStatus==="ACCEPTED_BY_SELLER")&&
        <div className="row">
-           <Timer startTime={order.timeOfAcceptance} timeLimit={12} atTimeOut={checkPaymentStatus}></Timer>
+           <Timer startTime={order.timeOfAcceptance} timeLimit={15} atTimeOut={checkPaymentStatus}></Timer>
        </div>
        }
    </div>
